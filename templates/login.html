@@ -1,0 +1,31 @@
+<!-- templates/login.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ログイン</title>
+</head>
+<body>
+    <h1>ログイン</h1>
+    <form method="POST">
+        <input type="text" name="username" placeholder="ユーザー名"><br>
+        <input type="password" name="password" placeholder="パスワード"><br>
+        <input type="submit" value="ログイン">
+    </form>
+</body>
+</html>
+@app.route('/')
+@login_required
+def index():
+    files = os.listdir(UPLOAD_FOLDER)
+    return render_template('index.html', files=files)
+
+@app.route('/upload', methods=['GET', 'POST'])
+@login_required
+def upload_file():
+    if request.method == 'POST':
+        file = request.files['file']
+        if file.filename != '':
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+            file.save(filepath)
+        return redirect('/')
+    return render_template('upload.html')

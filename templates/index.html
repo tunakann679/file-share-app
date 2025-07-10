@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ファイル一覧</title>
+</head>
+<body>
+    <h1>アップロード済みファイル</h1>
+    <ul>
+        {% for file in files %}
+        <li><a href="/files/{{ file }}">{{ file }}</a></li>
+        {% endfor %}
+    </ul>
+    <a href="/upload">ファイルをアップロード</a>
+</body>
+</html>
